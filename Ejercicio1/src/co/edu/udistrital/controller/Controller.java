@@ -29,6 +29,19 @@ public class Controller {
 		}
 	}
 
+	public void seleccionarOrdenamiento(int ordenamiento, long[] criterio, boolean descendente) {
+		switch (ordenamiento) {
+			case 1:
+				ordenador.burbuja(criterio, descendente);
+				break;
+			case 2:
+				ordenador.insercion(criterio, descendente);
+				break;
+			default:
+				vista.imprimir("Metodo de ordenamiento no valido");
+		}
+	}
+
 	public boolean esDescendente(int descendente) {
 		boolean resultado = false;
 		switch (descendente) {
@@ -104,13 +117,16 @@ public class Controller {
 		directorio.añadir(emp5);
 
 		int ordenamiento = Integer.parseInt(vista.leer("Metodo de ordenamiento: \n 1.Burbuja \n 2.Insercion"));
-
 		int criterio = Integer.parseInt(vista.leer("Criterio de ordenamiento: \n 1.Nombre \n 2.Fecha de Creacion \n 3.Ventas \n 4.Numero de Clientes"));
-
 		int descendente = Integer.parseInt(vista.leer("Ordenar de forma descendente? \n 1.si \n 2.no"));
 
 		this.seleccionarOrdenamiento(ordenamiento, this.seleccionarCriterio(criterio), this.esDescendente(descendente));
+		
+		if(criterio == 2) {
+		String tipoFecha = vista.leer("Valor de fecha a tomar: \n 1. Dia \n 2. Mes \n 3. Año ");
+		this.seleccionarOrdenamiento(ordenamiento, this.ordenador.getByDate(this.seleccionarCriterio(2), tipoFecha), this.esDescendente(descendente));}
 
+		vista.imprimir("Has seleccionado: \n"+ "Algoritmo: " + Integer.toString(ordenamiento) + "Criterio: " + Integer.toString(criterio) + "\n Ordenamiento: " + Integer.toString(criterio) + "\n Descendente: " + Integer.toString(descendente));
 		vista.imprimir("Directorio de Empresas:");
 		vista.imprimir(directorio.mostrar());
 

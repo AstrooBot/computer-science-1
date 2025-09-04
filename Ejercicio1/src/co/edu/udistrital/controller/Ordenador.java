@@ -10,6 +10,43 @@ public class Ordenador {
         this.directorio = directorio;
     }
 
+    private String[] getDateData(String date) {
+            /*
+            * Returns an array which:
+            * [0]: day
+            * [1]: month
+            * [2]: year
+            */
+        String[] words = date.split("/");
+        return words;
+    } 
+
+    public long[] getByDate(String[] fechas, String criterio) {
+
+        long[] elementos = new long[this.directorio.getOcupados()];
+
+        switch (criterio) {
+            case "1":
+                for (int i = 0; i < fechas.length; i++) {
+                elementos[i] = Long.parseLong(this.getDateData(fechas[i])[0]);}
+                break;
+            
+            case "2":
+                for (int i = 0; i < fechas.length; i++) {
+                elementos[i] = Long.parseLong(this.getDateData(fechas[i])[1]);}
+                break;            
+            case "3":
+                for (int i = 0; i < fechas.length; i++) {
+                elementos[i] = Long.parseLong(this.getDateData(fechas[i])[2]);}
+                break;
+            default:
+                return null;
+        }
+            
+        return elementos;
+        
+    } 
+
     public String[] getByCriterio(String criterio) {
 
         String[] elementos = new String[this.directorio.getOcupados()];
@@ -19,16 +56,12 @@ public class Ordenador {
                 for (int i = 0; i < elementos.length; i++) {
                 elementos[i] = this.directorio.buscar(i).getNombre();
                 }
-
                 break;
-
             case "fechaCreacion":
                 for (int i = 0; i < elementos.length; i++) {
                 elementos[i] = this.directorio.buscar(i).getFechaCreacion();
                 }
-
                 break;
-            
             case "ventas":
                 for (int i = 0; i < elementos.length; i++) {
                 elementos[i] = Long.toString(this.directorio.buscar(i).getVentas());
@@ -69,7 +102,7 @@ public class Ordenador {
         }
             if (swapped == 0) break;
         }
-        if(descendente) this.directorio.invertir();
+        if(descendente) {this.directorio.invertir();}
 
     }
 
@@ -95,7 +128,7 @@ public class Ordenador {
         }
             if (swapped == 0) break;
         }
-        if(descendente) this.directorio.invertir();
+        if(descendente) {this.directorio.invertir();}
 
     }
 
@@ -111,8 +144,8 @@ public class Ordenador {
                 innerIndex--;
             }
             elementos[innerIndex + 1] = ref;
-            if(descendente) this.directorio.invertir();
         }
+        if(descendente){ this.directorio.invertir();}
     }
 
     public void insercion(long[] elementos, boolean descendente) {
@@ -127,8 +160,8 @@ public class Ordenador {
                 innerIndex--;
             }
             elementos[innerIndex + 1] = ref;
-            if(descendente) this.directorio.invertir();
         }
+        if(descendente) {this.directorio.invertir();}
     }
 
 }
